@@ -1,0 +1,660 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Marc Adrian Bobadilla</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@600;700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a split hero (name left, portrait panel right, gold divider) that echoes the deck's title slide, then quiet single-column sections. */
+:root {
+  --bg: #F8F5EE;
+  --surface: #FFFFFF;
+  --ink: #17251F;
+  --muted: #55655E;
+  --line: #E1DCCE;
+  --head: #0E4F3C;
+  --gold: #C99A2E;
+  --gold-text: #7F5C0D;
+  --chip: #E1EEE8;
+  --chip-ink: #0E4F3C;
+  --hero-bg: #08322A;
+  --hero-panel: #0E4F3C;
+  --hero-ink: #F6F3EA;
+  --hero-muted: #B7CEC4;
+  --btn-ink: #08322A;
+  --font-display: "Gelasio", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --max: 1120px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0A1F19;
+    --surface: #10302A;
+    --ink: #ECEADF;
+    --muted: #A6B9B1;
+    --line: #20443A;
+    --head: #EDE7D3;
+    --gold: #D8AB3E;
+    --gold-text: #E2BC5A;
+    --chip: #173D33;
+    --chip-ink: #BFE3D2;
+    --hero-bg: #061A15;
+    --hero-panel: #0A2A22;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0A1F19;
+  --surface: #10302A;
+  --ink: #ECEADF;
+  --muted: #A6B9B1;
+  --line: #20443A;
+  --head: #EDE7D3;
+  --gold: #D8AB3E;
+  --gold-text: #E2BC5A;
+  --chip: #173D33;
+  --chip-ink: #BFE3D2;
+  --hero-bg: #061A15;
+  --hero-panel: #0A2A22;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: auto; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  background: var(--hero-bg);
+  z-index: 30;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--font-display); color: var(--head); text-wrap: balance; margin: 0; line-height: 1.15; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+.wrap {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  background: var(--hero-bg);
+  color: var(--hero-ink);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.7rem; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; text-decoration: none; white-space: nowrap; color: var(--hero-ink); }
+.site-nav { display: flex; gap: 1.1rem; overflow-x: auto; min-width: 0; scrollbar-width: none; }
+.site-nav::-webkit-scrollbar { display: none; }
+.site-nav a { color: var(--hero-muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 0.25rem 0; border-bottom: 2px solid transparent; white-space: nowrap; }
+.site-nav a:hover { color: var(--hero-ink); }
+.site-nav a[aria-current="true"] { color: var(--hero-ink); border-bottom-color: var(--gold); }
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+  background: var(--hero-bg);
+  color: var(--hero-ink);
+}
+.hero-text {
+  padding-block: clamp(2.5rem, 7vw, 5rem);
+  padding-right: clamp(1.5rem, 4vw, 3.5rem);
+  padding-left: max(16px, env(safe-area-inset-left, 0px), calc((100vw - var(--max)) / 2 + 16px));
+  min-width: 0;
+}
+.hero-panel {
+  background: var(--hero-panel);
+  border-left: 4px solid var(--gold);
+  display: grid;
+  place-items: center;
+  padding-block: clamp(2rem, 5vw, 3rem);
+  padding-left: 1.5rem;
+  padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
+  min-width: 0;
+}
+.portrait {
+  width: min(100%, 340px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 4px solid var(--gold);
+  background: #fff;
+  object-fit: cover;
+  display: block;
+}
+.eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-text); }
+.hero .eyebrow { color: var(--gold); }
+.hero h1 { color: var(--hero-ink); font-size: clamp(2.5rem, 6.2vw, 4.5rem); font-weight: 700; letter-spacing: -0.01em; margin-top: 0.9rem; }
+.rule { width: 72px; height: 4px; background: var(--gold); margin-block: 1.5rem; }
+.hero .lead { color: var(--hero-ink); font-size: 1.1rem; max-width: 34rem; }
+.hero .sub { color: var(--hero-muted); margin-top: 0.75rem; font-size: 0.98rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.7rem 1.2rem; border-radius: 8px;
+  font: 600 0.95rem var(--font-body); text-decoration: none; cursor: pointer;
+  border: 2px solid var(--gold);
+}
+.btn-primary { background: var(--gold); color: var(--btn-ink); }
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-ghost { background: transparent; color: var(--hero-ink); border-color: rgba(255, 255, 255, 0.35); }
+.btn-ghost:hover { border-color: var(--gold); }
+.facts { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; margin-top: 2.25rem; padding-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.14); }
+.facts div { min-width: 0; }
+.facts dt { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--hero-muted); font-weight: 600; }
+.facts dd { margin: 0.15rem 0 0; font-weight: 600; font-size: 0.95rem; color: var(--hero-ink); }
+
+/* Sections */
+.band { padding-block: clamp(3rem, 7vw, 5.5rem); }
+.band-alt { background: var(--surface); border-block: 1px solid var(--line); }
+.band + .band:not(.band-alt) { padding-top: clamp(3rem, 7vw, 5.5rem); }
+section[id] { scroll-margin-top: calc(3.2rem + env(safe-area-inset-top, 0px)); }
+.section-head { max-width: 40rem; margin-bottom: clamp(1.75rem, 4vw, 3rem); }
+.section-head h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); margin-top: 0.5rem; }
+.section-head p { color: var(--muted); margin-top: 0.75rem; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chip { display: inline-flex; padding: 0.3rem 0.8rem; border-radius: 999px; background: var(--chip); color: var(--chip-ink); font-size: 0.84rem; font-weight: 600; }
+
+/* About */
+.about-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); }
+.about-copy { display: grid; gap: 1rem; font-size: 1.05rem; }
+.about-copy p { max-width: 38rem; }
+.about-side { display: grid; gap: 1.75rem; align-content: start; min-width: 0; }
+.label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-text); margin-bottom: 0.6rem; }
+.roles li { font-family: var(--font-display); font-weight: 700; font-size: 1.18rem; color: var(--head); padding-block: 0.55rem; border-bottom: 1px solid var(--line); }
+.roles li:first-child { padding-top: 0; }
+.bring li { padding-left: 1.1rem; position: relative; color: var(--ink); margin-bottom: 0.4rem; }
+.bring li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+/* Projects */
+.projects { display: grid; gap: clamp(3rem, 7vw, 5.5rem); }
+.project { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.25rem); align-items: center; }
+.project.flip .shot { order: 2; }
+.shot { margin: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); box-shadow: 0 10px 30px rgba(8, 50, 42, 0.12); min-width: 0; }
+.shot img { display: block; width: 100%; height: auto; }
+.zoom { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; position: relative; }
+.zoom::after { content: "Enlarge"; position: absolute; right: 10px; bottom: 10px; background: var(--hero-bg); color: var(--hero-ink); font: 600 0.75rem var(--font-body); padding: 0.3rem 0.6rem; border-radius: 6px; }
+.project-body { min-width: 0; }
+.project-body h3 { font-size: clamp(1.5rem, 2.8vw, 2.05rem); margin-top: 0.4rem; }
+.role-line { color: var(--muted); font-weight: 600; margin-top: 0.4rem; }
+.project-body ul { margin-top: 1.1rem; display: grid; gap: 0.6rem; }
+.project-body li { padding-left: 1.1rem; position: relative; }
+.project-body li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.project-body .chips { margin-top: 1.25rem; }
+.text-link { display: inline-block; margin-top: 1.1rem; font-weight: 700; color: var(--head); text-underline-offset: 4px; text-decoration-thickness: 2px; text-decoration-color: var(--gold); }
+.text-link:hover { text-decoration-color: var(--head); }
+
+.study { margin-top: clamp(1.5rem, 3vw, 2.25rem); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: clamp(1.25rem, 3vw, 2rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(1.25rem, 3vw, 2.5rem); }
+.study > div { min-width: 0; }
+.study h4 { margin: 0 0 0.5rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-text); }
+.study .big { font-family: var(--font-display); font-weight: 700; font-size: 1.7rem; color: var(--head); line-height: 1.15; }
+.study p { color: var(--muted); font-size: 0.92rem; margin-top: 0.35rem; }
+.sus { position: relative; padding-top: 1.9rem; }
+.sus-bar { position: relative; height: 12px; border-radius: 6px; background: linear-gradient(90deg, #C2453D 0%, #E0883A 30%, #E4C44A 50%, #8CC265 72%, #2F9E5F 100%); }
+.sus-marker { position: absolute; top: -1.9rem; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; font-weight: 700; font-size: 0.9rem; color: var(--head); }
+.sus-marker::after { content: ""; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 3px solid var(--head); margin-top: 0.15rem; position: relative; z-index: 1; }
+.sus-ticks { position: relative; height: 1.4rem; margin-top: 0.35rem; }
+.sus-ticks span { position: absolute; transform: translateX(-50%); font-size: 0.72rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.sus-ticks span:first-child { transform: none; }
+.sus-ticks span:last-child { transform: translateX(-100%); }
+
+/* Skills */
+.skill-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 2.5rem; }
+.skill-group { min-width: 0; padding-top: 1rem; border-top: 2px solid var(--gold); }
+.skill-group .chips { margin-top: 0.5rem; }
+.knowledge { margin-top: 2rem; padding: 1.25rem 1.5rem; border-radius: 12px; background: var(--hero-bg); color: var(--hero-ink); }
+.knowledge .label { color: var(--gold); }
+.knowledge p { font-weight: 500; }
+
+/* Timeline */
+.timeline { display: grid; gap: 0; max-width: 54rem; }
+.entry { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 0.5rem clamp(1rem, 3vw, 2.5rem); padding-block: 1.75rem; border-top: 1px solid var(--line); }
+.entry:last-child { border-bottom: 1px solid var(--line); }
+.entry time { font-weight: 700; color: var(--gold-text); font-size: 0.9rem; font-variant-numeric: tabular-nums; padding-top: 0.35rem; }
+.entry h3 { font-size: 1.4rem; }
+.entry .org { font-weight: 600; color: var(--muted); margin-top: 0.2rem; }
+.entry ul { margin-top: 0.75rem; display: grid; gap: 0.4rem; }
+.entry li { padding-left: 1.1rem; position: relative; }
+.entry li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.entry .chips { margin-top: 0.9rem; }
+.entry > div { min-width: 0; }
+
+/* Honors */
+.honors { max-width: 54rem; }
+.honor { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 0.25rem clamp(1rem, 3vw, 2.5rem); padding-block: 1.25rem; border-top: 1px solid var(--line); align-items: baseline; }
+.honor:last-child { border-bottom: 1px solid var(--line); }
+.honor .what { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: var(--head); }
+.honor .where { font-weight: 600; }
+.honor .detail { color: var(--muted); font-size: 0.95rem; }
+
+/* Contact */
+.contact { background: var(--hero-bg); color: var(--hero-ink); }
+.contact h2 { color: var(--hero-ink); font-size: clamp(1.9rem, 4vw, 2.9rem); margin-top: 0.6rem; }
+.contact .eyebrow { color: var(--gold); }
+.contact .intro { color: var(--hero-muted); max-width: 34rem; margin-top: 0.9rem; }
+.contact-list { margin-top: 2rem; display: grid; gap: 0; max-width: 40rem; }
+.contact-row { display: grid; grid-template-columns: 6rem minmax(0, 1fr) auto; gap: 0.75rem; align-items: center; padding-block: 0.9rem; border-top: 1px solid rgba(255, 255, 255, 0.14); }
+.contact-row:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
+.contact-row dt { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--hero-muted); font-weight: 600; }
+.contact-row dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; user-select: all; }
+.copy { font: 600 0.8rem var(--font-body); color: var(--hero-ink); background: transparent; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 6px; padding: 0.35rem 0.7rem; cursor: pointer; }
+.copy:hover { border-color: var(--gold); }
+.contact .actions { margin-top: 1.75rem; }
+footer { background: var(--hero-bg); color: var(--hero-muted); font-size: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+footer .wrap { padding-block: 1.25rem; }
+
+/* Lightbox */
+.lightbox { position: fixed; inset: 0; z-index: 50; background: rgba(4, 18, 14, 0.92); display: grid; place-items: center; padding: 1rem; padding-top: calc(3.5rem + env(safe-area-inset-top, 0px)); overflow: auto; }
+.lightbox[hidden] { display: none; }
+.lightbox img { max-width: min(100%, 1400px); height: auto; border-radius: 8px; background: #fff; }
+.lightbox button { position: fixed; top: calc(0.75rem + env(safe-area-inset-top, 0px)); right: max(0.75rem, env(safe-area-inset-right, 0px)); font: 600 0.9rem var(--font-body); padding: 0.5rem 0.9rem; border-radius: 8px; border: 2px solid var(--gold); background: var(--hero-bg); color: var(--hero-ink); cursor: pointer; }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero-text { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .hero-panel { border-left: 0; border-top: 4px solid var(--gold); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .portrait { width: min(100%, 220px); }
+  .about-grid, .project, .study { grid-template-columns: minmax(0, 1fr); }
+  .project.flip .shot { order: 0; }
+  .skill-grid { grid-template-columns: minmax(0, 1fr); }
+  .entry, .honor { grid-template-columns: minmax(0, 1fr); }
+  .entry time { padding-top: 0; }
+}
+@media (max-width: 480px) {
+  .contact-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .contact-row dt { grid-column: 1 / -1; }
+}
+</style>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">Marc Bobadilla</a>
+    <nav class="site-nav" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#honors">Honors</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Aspiring Software Developer</p>
+      <h1>Marc Adrian V. Bobadilla</h1>
+      <div class="rule"></div>
+      <p class="lead">I turn ideas into software people can actually use, from a clean interface to the backend that powers it.</p>
+      <p class="sub">BS Computer Science, Major in Software Technology<br>De La Salle University, Manila</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#projects">See my projects</a>
+        <a class="btn btn-ghost" href="https://drive.google.com/file/d/1jCpVOA-wRdyv5pe64YuRIV2CX6vQnlYG/view?usp=sharing" target="_blank" rel="noopener">View full resume</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/marc-adrian-bobadilla-9aa699201" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <dl class="facts">
+        <div><dt>Dean's Lister</dt><dd>Since AY 2024–2025</dd></div>
+        <div><dt>Organizations</dt><dd>LSCS and DLSU SPRINT</dd></div>
+        <div><dt>2026</dt><dd>AVP, Design and Interface</dd></div>
+      </dl>
+    </div>
+    <div class="hero-panel">
+      <img class="portrait" src="img/photo.jpg" alt="Portrait of Marc Adrian Bobadilla" width="480" height="480">
+    </div>
+  </div>
+
+  <section class="band" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">About</p>
+        <h2>Design, testing, and code in one person</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>I'm a Computer Science student at De La Salle University with experience in project collaboration and development, quality assurance, UI/UX design, and student organization work.</p>
+          <p>I enjoy turning ideas into software people can actually use, whether that means designing a clean interface, testing an app until it holds up, or building the backend that powers it.</p>
+          <p>Detail-oriented, adaptable, and eager to apply my technical and organizational skills in a professional setting.</p>
+        </div>
+        <div class="about-side">
+          <div>
+            <p class="label">Target roles</p>
+            <ul class="roles">
+              <li>Software Developer (Web / Full-stack)</li>
+              <li>UI/UX Designer / Product Designer</li>
+              <li>Quality Assurance Engineer</li>
+            </ul>
+          </div>
+          <div>
+            <p class="label">What I bring</p>
+            <ul class="bring">
+              <li>Design thinking backed by usability testing</li>
+              <li>Hands-on QA mindset: document, communicate, verify</li>
+              <li>Teamwork shaped by student leadership</li>
+            </ul>
+          </div>
+          <div>
+            <p class="label">Interests</p>
+            <div class="chips">
+              <span class="chip">Software Development</span>
+              <span class="chip">UI/UX Design</span>
+              <span class="chip">Problem Solving</span>
+              <span class="chip">Algorithm Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt" id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Projects</p>
+        <h2>Three projects, three roles</h2>
+        <p>A full-stack build, a researched mobile prototype, and a QA contribution to a team app.</p>
+      </div>
+      <div class="projects">
+
+        <article class="project">
+          <figure class="shot">
+            <img src="img/labynx.jpg" alt="Labynx home page with the headline Reserve Your Lab Seat in Seconds" width="1200" height="648" loading="lazy">
+          </figure>
+          <div class="project-body">
+            <p class="eyebrow">Web application project</p>
+            <h3>Lab Reservation System</h3>
+            <p class="role-line">Full-stack Developer</p>
+            <ul>
+              <li>Built a web-based reservation system integrating frontend, backend, database, and REST API components.</li>
+              <li>Applied web application development and database coursework to a working, end-to-end product.</li>
+            </ul>
+            <div class="chips"><span class="chip">Frontend</span><span class="chip">Backend</span><span class="chip">Database</span><span class="chip">REST API</span></div>
+            <a class="text-link" href="https://github.com/wMarc11/Lab-Reservation-Application" target="_blank" rel="noopener">View repository on GitHub →</a>
+          </div>
+        </article>
+
+        <div>
+          <article class="project flip">
+            <figure class="shot">
+              <button class="zoom" type="button" data-zoom="img/declutr-poster.jpg" data-alt="Research poster for Declutr, an AI-assisted mobile app for household decluttering decisions, showing the problem, design process, final prototype screens, evaluation, and results" aria-label="Enlarge the Declutr research poster">
+                <img src="img/declutr-poster.jpg" alt="Research poster for Declutr, an AI-assisted mobile app for household decluttering decisions" width="1536" height="1152" loading="lazy">
+              </button>
+            </figure>
+            <div class="project-body">
+              <p class="eyebrow">Mobile UI/UX prototype</p>
+              <h3>Declutter Decision Assistant</h3>
+              <p class="role-line">UI/UX Lead</p>
+              <ul>
+                <li>Led development of a mobile UI/UX prototype.</li>
+                <li>Designed and refined user flows based on usability testing and user feedback.</li>
+                <li>Iterated on the interface to make decisions simpler for users.</li>
+              </ul>
+              <div class="chips"><span class="chip">UI/UX</span><span class="chip">Prototyping</span><span class="chip">Usability Testing</span></div>
+            </div>
+          </article>
+
+          <div class="study" aria-label="Usability study results">
+            <div>
+              <h4>Participants</h4>
+              <p class="big">7 people</p>
+              <p>Ages 22–60, homeowners or long-term renters.</p>
+            </div>
+            <div>
+              <h4>System Usability Scale</h4>
+              <div class="sus" role="img" aria-label="Average SUS score of 81.79 on a scale from 0 to 100, rated Excellent">
+                <div class="sus-bar"><span class="sus-marker" style="left:81.79%">81.79</span></div>
+                <div class="sus-ticks" aria-hidden="true">
+                  <span style="left:0%">0</span><span style="left:20%">20</span><span style="left:40%">40</span><span style="left:60%">60</span><span style="left:80%">80</span><span style="left:100%">100</span>
+                </div>
+              </div>
+              <p>Average score, rated Excellent. Methods: think-aloud, SUS, NASA TLX, semi-structured interview.</p>
+            </div>
+            <div>
+              <h4>NASA TLX workload</h4>
+              <p class="big">Low to moderate</p>
+              <p>Users found the app easy to use with low mental and physical demand.</p>
+            </div>
+          </div>
+        </div>
+
+        <article class="project">
+          <figure class="shot">
+            <img src="img/resole.jpg" alt="ReSole Marketplace home screen with an AI sneaker valuation banner" width="1200" height="647" loading="lazy">
+          </figure>
+          <div class="project-body">
+            <p class="eyebrow">Quality assurance contribution</p>
+            <h3>ReSole Marketplace</h3>
+            <p class="role-line">QA Contributor</p>
+            <ul>
+              <li>Documented defects found while testing the application.</li>
+              <li>Communicated findings clearly to developers.</li>
+              <li>Verified fixes to support overall application quality.</li>
+            </ul>
+            <div class="chips"><span class="chip">QA</span><span class="chip">Bug Reporting</span><span class="chip">Collaboration</span></div>
+            <a class="text-link" href="https://github.com/resole-ph/resole" target="_blank" rel="noopener">View repository on GitHub →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="skills">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Skills</p>
+        <h2>What I work with</h2>
+      </div>
+      <div class="skill-grid">
+        <div class="skill-group">
+          <p class="label">Languages</p>
+          <div class="chips"><span class="chip">Java</span><span class="chip">C</span><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">Python</span><span class="chip">Assembly</span></div>
+        </div>
+        <div class="skill-group">
+          <p class="label">Frameworks</p>
+          <div class="chips"><span class="chip">Node.js</span><span class="chip">Express.js</span><span class="chip">React</span></div>
+        </div>
+        <div class="skill-group">
+          <p class="label">Databases</p>
+          <div class="chips"><span class="chip">MongoDB</span><span class="chip">SQL</span><span class="chip">PostgreSQL</span></div>
+        </div>
+        <div class="skill-group">
+          <p class="label">Tools</p>
+          <div class="chips"><span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">VS Code</span><span class="chip">ChatGPT</span><span class="chip">Claude</span><span class="chip">Gemini</span></div>
+        </div>
+      </div>
+      <div class="knowledge">
+        <p class="label">Knowledge areas</p>
+        <p>Object-Oriented Programming · Data Structures &amp; Algorithms · Web Application Development · Database Systems · UI/UX Design</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt" id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Education &amp; leadership</p>
+        <h2>Where I've studied and led</h2>
+      </div>
+      <div class="timeline">
+        <div class="entry">
+          <time>2026 – Present</time>
+          <div>
+            <h3>AVP, Design and Interface</h3>
+            <p class="org">La Salle Computer Society</p>
+            <ul>
+              <li>Support planning and development of design and interface initiatives for the Computer Science community.</li>
+              <li>Collaborate with fellow officers on organizational activities and projects.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="entry">
+          <time>2025 – Present</time>
+          <div>
+            <h3>Officer</h3>
+            <p class="org">DLSU SPRINT</p>
+            <ul>
+              <li>Participate in student-led initiatives and events supporting leadership and student growth.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="entry">
+          <time>2024 – Present</time>
+          <div>
+            <h3>BS Computer Science, Major in Software Technology</h3>
+            <p class="org">De La Salle University, Manila</p>
+            <div class="chips">
+              <span class="chip">OOP</span><span class="chip">Data Structures &amp; Algorithms</span><span class="chip">Discrete Structures</span><span class="chip">Computer Organization</span><span class="chip">Web App Development</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="honors">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Honors &amp; awards</p>
+        <h2>Recognition so far</h2>
+      </div>
+      <div class="honors">
+        <div class="honor">
+          <p class="what">Dean's Lister</p>
+          <div><p class="where">De La Salle University</p><p class="detail">Consistent since AY 2024–2025</p></div>
+        </div>
+        <div class="honor">
+          <p class="what">High Honors</p>
+          <div><p class="where">Senior High School</p><p class="detail">Graduated with High Honors</p></div>
+        </div>
+        <div class="honor">
+          <p class="what">1st Place</p>
+          <div><p class="where">SHS Group Mathematics Quiz Bee</p><p class="detail">20th ASEP National Science Quest</p></div>
+        </div>
+        <div class="honor">
+          <p class="what">5th Place</p>
+          <div><p class="where">SHS Individual Science &amp; Environmental Quiz Bee</p><p class="detail">20th ASEP National Science Quest</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band contact" id="contact">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h2>Thank you for visiting my portfolio.</h2>
+      <p class="intro">I'm looking for opportunities in web development, UI/UX design, and quality assurance.</p>
+      <dl class="contact-list">
+        <div class="contact-row"><dt>Email</dt><dd id="c-email">marcadrian.bobadilla@gmail.com</dd><button class="copy" type="button" data-copy="c-email">Copy</button></div>
+        <div class="contact-row"><dt>Phone</dt><dd id="c-phone">09695043056</dd><button class="copy" type="button" data-copy="c-phone">Copy</button></div>
+        <div class="contact-row"><dt>Location</dt><dd>San Pablo City, Laguna, Philippines</dd><span></span></div>
+      </dl>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://www.linkedin.com/in/marc-adrian-bobadilla-9aa699201" target="_blank" rel="noopener">LinkedIn profile</a>
+        <a class="btn btn-ghost" href="https://drive.google.com/file/d/1jCpVOA-wRdyv5pe64YuRIV2CX6vQnlYG/view?usp=sharing" target="_blank" rel="noopener">View full resume</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Marc Adrian V. Bobadilla</div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image" hidden>
+  <button type="button" id="lightbox-close">Close</button>
+  <img id="lightbox-img" alt="">
+</div>
+
+<script>
+(function () {
+  // Copy buttons
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      var text = el.textContent.trim();
+      var done = function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
+      };
+      var fallback = function () {
+        var r = document.createRange();
+        r.selectNodeContents(el);
+        var s = window.getSelection();
+        s.removeAllRanges();
+        s.addRange(r);
+        btn.textContent = 'Selected';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else {
+        fallback();
+      }
+    });
+  });
+
+  // Lightbox for the research poster
+  var box = document.getElementById('lightbox');
+  var boxImg = document.getElementById('lightbox-img');
+  var closeBtn = document.getElementById('lightbox-close');
+  var opener = null;
+  function openBox(btn) {
+    opener = btn;
+    boxImg.src = btn.getAttribute('data-zoom');
+    boxImg.alt = btn.getAttribute('data-alt') || '';
+    box.hidden = false;
+    closeBtn.focus();
+  }
+  function closeBox() {
+    box.hidden = true;
+    boxImg.removeAttribute('src');
+    if (opener) opener.focus();
+  }
+  document.querySelectorAll('.zoom').forEach(function (b) {
+    b.addEventListener('click', function () { openBox(b); });
+  });
+  closeBtn.addEventListener('click', closeBox);
+  box.addEventListener('click', function (e) { if (e.target === box) closeBox(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) closeBox(); });
+
+  // Highlight the current section in the nav
+  var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          links.forEach(function (a) { a.removeAttribute('aria-current'); });
+          var a = map[en.target.id];
+          if (a) a.setAttribute('aria-current', 'true');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    Object.keys(map).forEach(function (id) {
+      var s = document.getElementById(id);
+      if (s) io.observe(s);
+    });
+  }
+})();
+</script>
+
+</body></html>
